@@ -101,6 +101,8 @@ const MoodSuggestor = () => {
         </div>
       )}
     </div>
+
+    
   );
 };
 
