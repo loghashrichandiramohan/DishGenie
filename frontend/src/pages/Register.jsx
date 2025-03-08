@@ -4,7 +4,7 @@ import "../App.css"; // Import styling
 
 const Register = () => {
   const [formData, setFormData] = useState({
-    name: "",
+    username: "", // Changed from name to username
     email: "",
     password: "",
     confirmPassword: "",
@@ -20,7 +20,7 @@ const Register = () => {
     e.preventDefault();
     
     // Validation
-    if (!formData.name || !formData.email || !formData.password || !formData.confirmPassword) {
+    if (!formData.username || !formData.email || !formData.password || !formData.confirmPassword) {
       alert("Please fill in all fields.");
       return;
     }
@@ -32,9 +32,10 @@ const Register = () => {
     try {
       // Send data to backend
       const { data } = await API.post("/api/auth/register", {
-        name: formData.name,
+        username: formData.username, // Changed from name to username
         email: formData.email,
         password: formData.password,
+        confirmPassword: formData.confirmPassword,
       });
 
       // Store token & notify user
@@ -53,13 +54,13 @@ const Register = () => {
 
         <form onSubmit={handleSubmit}>
           <div className="register-input-group">
-            <label htmlFor="name">Full Name</label>
+            <label htmlFor="username">Full Name</label> {/* Changed from name to username */}
             <input
               type="text"
-              name="name"
+              name="username" // Changed from name to username
               className="register-input"
               placeholder="Enter your full name"
-              value={formData.name}
+              value={formData.username} // Changed from name to username
               onChange={handleChange}
             />
           </div>

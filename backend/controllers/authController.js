@@ -50,7 +50,15 @@ export const registerUser = async (req, res) => {
     const newUser = new User({ username, email, password: hashedPassword });
     await newUser.save();
 
-    res.status(201).json({ message: "User registered successfully" });
+    // 🔹 Generate tokens
+    const { accessToken, refreshToken } = generateTokens(newUser._id);
+    refreshTokens.add(refreshToken);
+
+    res.status(201).json({ 
+      message: "User registered successfully",
+      token: accessToken,
+      refreshToken,
+    });
   } catch (error) {
     res.status(500).json({ message: "Server error", error: error.message });
   }
